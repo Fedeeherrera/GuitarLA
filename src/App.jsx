@@ -12,13 +12,22 @@ function App() {
 
     const itemExists = cart.findIndex(guitar => guitar.id === item.id)
     console.log(itemExists)
+    if (itemExists >= 0) {
+      const updatedCart = [...cart] //hago una copia del carrito
+      updatedCart[itemExists].quantity++ //Modifico la copia
+      setCart(updatedCart) //Paso los valores de la copia al carrito original
 
-    setCart(prevCart => [...prevCart, item])
+    } else {
+      item.quantity = 1
+      setCart([...cart, item])
+
+    }
+
   }
 
   return (
     <>
-      <Header />
+      <Header cart={cart}/>
       <main className="container-xl mt-5">
         <h2 className="text-center">Nuestra Colección</h2>
 
